@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent a Girlfriend</title>
+    <style>
+          body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .option-table, .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .option-table th, .option-table td,
+        .pricing-table th, .pricing-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .option-table th, .pricing-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .instagram-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        .instagram-link:hover {
+            text-decoration: underline;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        .popup img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .popup-content {
+            text-align: center;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .open-btn, .close-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .open-btn:focus {
+            outline: none;
+        }
+    </style>
+    <script>
+        var currentIndex = 0;
+        var delay = 10000; // Initial delay of 30 seconds
+
+        var messages = [
+            { name: 'Hayley', image: 'download.jpeg' },
+            { name: 'Kiara', image: 'downloadd.jpeg' },
+            { name: 'Vicky', image: 'downloaddd.jpeg' },
+            { name: 'Becky', image: 'downloadddd.jpg' },
+            { name: 'Iris', image: 'downloaddddd.jpg' }
+        ];
+
+        function getRandomDistance() {
+            return Math.floor(Math.random() * 5) + 1; // Generate a random distance between 1 and 5 miles
+        }
+
+        function getRandomMessage(personName) {
+            var randomIndex = Math.floor(Math.random() * 2); // 0 or 1
+            return randomIndex === 0 ? `${personName} is ${getRandomDistance()} miles away from you.` : `${personName} wants to know your location.`;
+        }
+
+        function showDistance(personName, distance, imagePath) {
+            var popup = document.getElementById("popup");
+
+            var randomMessage = getRandomMessage(personName);
+
+            var popupContent = `
+                <div class="popup-content">
+                    <img src="${imagePath}" alt="${personName} Image">
+                    <p>${randomMessage}</p>
+                    <button class="close-btn" onclick="closePopup()">Close</button>
+                    <a class="open-btn" href="https://www.youtube.com/watch?v=nlYlNF30bVg" target="_blank">Open</a>
+                </div>
+            `;
+
+            popup.innerHTML = popupContent;
+            popup.style.display = "block";
+        }
+
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.display = "none";
+            currentIndex++;
+            if (currentIndex < messages.length) {
+                setTimeout(function () {
+                    var message = messages[currentIndex];
+                    showDistance(message.name, getRandomDistance(), message.image);
+                }, delay);
+                delay += 3000; // Increase delay by 10 seconds after each close
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            function initiatePopup() {
+                if (currentIndex < messages.length) {
+                    var message = messages[currentIndex];
+                    showDistance(message.name, getRandomDistance(), message.image);
+                }
+            }
+
+            initiatePopup(); // Show the first popup
+
+            // Remaining popups will be triggered automatically by the closePopup function
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Rent a Girlfriend</h1>
+    </div>
+    <div class="container">
+        <h2>Choose Your Option</h2>
+        <table class="option-table">
+            <tr>
+                <th>Option</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Basic</td>
+                <td>Get a lovely companion for casual outings.</td>
+            </tr>
+            <tr>
+                <td>Average</td>
+                <td>Enhance your social presence with a charming partner.</td>
+            </tr>
+            <tr>
+                <td>Premium</td>
+                <td>Experience luxury companionship for special occasions.</td>
+            </tr>
+        </table>
+
+        <h2>Pricing</h2>
+        <table class="pricing-table">
+            <tr>
+                <th>Option</th>
+                <th>Price per Hour</th>
+            </tr>
+            <tr>
+                <td>Basic</td>
+                <td>$30</td>
+            </tr>
+            <tr>
+                <td>Average</td>
+                <td>$50</td>
+            </tr>
+            <tr>
+                <td>Premium</td>
+                <td>$100</td>
+            </tr>
+        </table>
+
+        <div id="popup" class="popup"></div>
+
+        <!-- Audio Player -->
+        <audio controls>
+            <source src="YK.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <br>
+        <a class="instagram-link" href="https://www.instagram.com/RentalGirlFriends" target="_blank">@RentalGirlFriends</a>
+        <br>
+    </div>
+</body>
+</html>
